@@ -1,0 +1,15 @@
+{
+  "screenConfig" : {
+    "fullscreen" : false,
+    "displayModeIndex" : 11
+  },
+  "anistropicFilteringLevel" : {
+    "level" : 0
+  },
+  "postProcessorSettings" : {
+    "samples" : 16,
+    "ssao" : true,
+    "bloom" : true,
+    "depthOfField" : true
+  }
+}
