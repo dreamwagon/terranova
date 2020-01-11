@@ -1,4 +1,6 @@
 /target/
 /.classpath
+/.project
+/.settings
 /lwjgl64.dll
 /OpenAL64.dll
