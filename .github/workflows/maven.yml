@@ -26,6 +26,6 @@ jobs:
         repository: terranova
         package: terranova-alpha
         version: '0.0.1-ALPHA'
-        sourcePath: ./target/terranova-0.0.1-ALPHA-SNAPSHOT.jar
+        sourcePath: terranova/target/terranova-0.0.1-ALPHA-SNAPSHOT.jar
         username: dreamwagon
         apiKey: ${{ secrets.BINTRAY_API_KEY }}
