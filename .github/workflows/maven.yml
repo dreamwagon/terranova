@@ -17,6 +17,7 @@ jobs:
       run: mvn -B package --file terranova/pom.xml
   deploy:
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
     - uses: actions/checkout@v2
     - name: Upload jar package to Bintray
