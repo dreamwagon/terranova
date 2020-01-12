@@ -18,5 +18,5 @@ jobs:
     - name: Deploy with curl
       uses: wei/curl@v1
       with:
-        args: -T terranova/target/terranova-0.0.1-ALPHA-SNAPSHOT.jar -udreamwagon:${{ secrets.BINTRAY_API_KEY }} https://api.bintray.com/content/dreamwagon/terranova/terranova-alpha;bt_package=terranova;bt_version=ALPHA
+        args: -T terranova/target/terranova-0.0.1-ALPHA.jar -udreamwagon:${{ secrets.BINTRAY_API_KEY }} https://api.bintray.com/content/dreamwagon/terranova/terranova-alpha;bt_package=terranova;bt_version=ALPHA
 
