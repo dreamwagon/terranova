@@ -17,7 +17,7 @@ jobs:
       run: mvn -B package --file terranova/pom.xml
   deploy:
     runs-on: ubuntu-latest
-    needs: [build]
+    needs: build
     steps:
     - uses: actions/checkout@v2
     - name: Upload jar package to Bintray
@@ -26,6 +26,6 @@ jobs:
         repository: terranova
         package: terranova-alpha
         version: '0.0.1-ALPHA'
-        sourcePath: ./home/runner/work/terranova/terranova/terranova/target/terranova-0.0.1-ALPHA-SNAPSHOT.jar
+        sourcePath: ./bin/terranova-0.0.1-ALPHA-SNAPSHOT.jar
         username: dreamwagon
         apiKey: ${{ secrets.BINTRAY_API_KEY }}
