@@ -4,7 +4,7 @@
 
   <groupId>com.dreamwagon</groupId>
   <artifactId>terranova</artifactId>
-  <version>0.0.1-ALPHA-SNAPSHOT</version>
+  <version>0.0.1-ALPHA</version>
   <packaging>jar</packaging>
 
   <name>terranova</name>
