@@ -15,12 +15,7 @@ jobs:
         java-version: 11
     - name: Build with Maven
       run: mvn -B package --file terranova/pom.xml
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-    - uses: actions/checkout@v2
-    - name: curl
+    - name: Deploy with curl
       uses: wei/curl@v1
       with:
         args: --upload-file .terranova/target/terranova-0.0.1-ALPHA-SNAPSHOT.jar -udreamwagon:${{ secrets.BINTRAY_API_KEY }} https://api.bintray.com/content/dreamwagon/terranova/terranova-alpha-releases/0.0.1-ALPHA/terranova-0.0.1-ALPHA-SNAPSHOT.jar
