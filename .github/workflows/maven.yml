@@ -20,12 +20,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Upload jar package to Bintray
-      uses: bpicode/github-action-upload-bintray@master
+      uses: hpcsc/upload-bintray-docker-action@v1
       with:
-        file: /home/runner/work/terranova/terranova/terranova/target/terranova-0.0.1-ALPHA-SNAPSHOT.jar
-        api_user: dreamwagon
-        api_key: ${{ secrets.BINTRAY_API_KEY }}.
         repository: terranova
         package: terranova-alpha
-        version: '0.0.1-ALPHA' 
-         
+        version: '0.0.1-ALPHA'
+        sourcePath: ./home/runner/work/terranova/terranova/terranova/target/terranova-0.0.1-ALPHA-SNAPSHOT.jar
+        username: dreamwagon
+        apiKey: ${{ secrets.BINTRAY_API_KEY }}
