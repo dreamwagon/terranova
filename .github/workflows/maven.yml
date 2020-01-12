@@ -20,12 +20,7 @@ jobs:
     needs: build
     steps:
     - uses: actions/checkout@v2
-    - name: Upload jar package to Bintray
-      uses: hpcsc/upload-bintray-docker-action@v1
+    - name: curl
+      uses: wei/curl@v1
       with:
-        repository: terranova
-        package: terranova-alpha
-        version: '0.0.1-ALPHA'
-        sourcePath: ./terranova/target/terranova-0.0.1-ALPHA-SNAPSHOT.jar
-        username: dreamwagon
-        apiKey: ${{ secrets.BINTRAY_API_KEY }}
+        args: --upload-file .terranova/target/terranova-0.0.1-ALPHA-SNAPSHOT.jar -udreamwagon:${{ secrets.BINTRAY_API_KEY }} https://api.bintray.com/content/dreamwagon/terranova/terranova-alpha-releases/0.0.1-ALPHA/terranova-0.0.1-ALPHA-SNAPSHOT.jar
