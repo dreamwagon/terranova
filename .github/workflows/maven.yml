@@ -15,3 +15,17 @@ jobs:
         java-version: 11
     - name: Build with Maven
       run: mvn -B package --file terranova/pom.xml
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Upload jar package to Bintray
+      uses: bpicode/github-action-upload-bintray@master
+      with:
+        file: /home/runner/work/terranova/terranova/terranova/target/terranova-0.0.1-ALPHA-SNAPSHOT.jar
+        api_user: dreamwagon
+        api_key: ${{ secrets.BINTRAY_API_KEY }}.
+        repository: terranova
+        package: terranova-alpha
+        version: '0.0.1-ALPHA' 
+         
