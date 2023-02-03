@@ -35,9 +35,10 @@ import com.dreamwagon.terranova.model.TreePrototype;
 import com.dreamwagon.terranova.ui.AbstractSettingsDialog;
 import com.dreamwagon.terranova.ui.TerranovaUiManager;
 import com.dreamwagon.terranova.util.ModelUtil;
-import com.jayfella.jme.jfx.JavaFxUI;
+
 import com.jme3.scene.Spatial;
 
+import io.tlf.jme.jfx.JavaFxUI;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;

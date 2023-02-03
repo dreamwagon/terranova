@@ -13,7 +13,7 @@ import com.dreamwagon.terranova.util.MathUtil;
 import com.jayfella.fastnoise.FastNoise;
 import com.jayfella.fastnoise.GradientPerturb;
 import com.jayfella.fastnoise.NoiseLayer;
-import com.jayfella.jme.jfx.JavaFxUI;
+
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
@@ -26,6 +26,7 @@ import com.jme3.texture.image.ColorSpace;
 import com.jme3.texture.image.ImageRaster;
 import com.jme3.util.BufferUtils;
 
+import io.tlf.jme.jfx.JavaFxUI;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -213,9 +214,9 @@ public class SplatMapGenerator extends AbstractSettingsDialog implements Generat
             	
             	if (useNoise) {
             		Vector3f f = new Vector3f(x * rNoiseScale, y * rNoiseScale, 0.5f);
-            		float noiseR = FastMath.clamp(noiseLayerR.getPrimaryNoise().GetNoise(f.x, f.y, f.z) * rNoiseDepth, -1, 1);
-            		float noiseG = FastMath.clamp(noiseLayerG.getPrimaryNoise().GetNoise(f.x, f.y, f.z) * gNoiseDepth, -1, 1);
-            		float noiseB = FastMath.clamp(noiseLayerB.getPrimaryNoise().GetNoise(f.x, f.y, f.z) * bNoiseDepth, -1, 1);
+            		float noiseR = FastMath.clamp(noiseLayerR.getPrimaryNoise().getNoise(f.x, f.y, f.z) * rNoiseDepth, -1, 1);
+            		float noiseG = FastMath.clamp(noiseLayerG.getPrimaryNoise().getNoise(f.x, f.y, f.z) * gNoiseDepth, -1, 1);
+            		float noiseB = FastMath.clamp(noiseLayerB.getPrimaryNoise().getNoise(f.x, f.y, f.z) * bNoiseDepth, -1, 1);
             		
             		noiseR = FastMath.abs(noiseR);
             		noiseG = FastMath.abs(noiseG);

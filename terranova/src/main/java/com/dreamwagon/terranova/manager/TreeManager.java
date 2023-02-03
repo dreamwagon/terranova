@@ -41,10 +41,11 @@ import com.dreamwagon.terranova.ui.AbstractSettingsDialog;
 import com.dreamwagon.terranova.ui.Settings;
 import com.dreamwagon.terranova.ui.SettingsDialogBuilder;
 import com.dreamwagon.terranova.ui.TerranovaUiManager;
-import com.jayfella.jme.jfx.JavaFxUI;
+
 import com.jme3.scene.Spatial;
 import com.jme3.terrain.geomipmap.TerrainQuad;
 
+import io.tlf.jme.jfx.JavaFxUI;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

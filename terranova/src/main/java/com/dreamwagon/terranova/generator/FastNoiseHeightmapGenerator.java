@@ -39,9 +39,10 @@ import com.dreamwagon.terranova.ui.SettingType;
 import com.dreamwagon.terranova.ui.SettingsDialogBuilder;
 import com.dreamwagon.terranova.ui.TerranovaUiManager;
 import com.dreamwagon.terranova.util.ImageUtil;
-import com.jayfella.jme.jfx.JavaFxUI;
+
 import com.jme3.texture.Texture;
 
+import io.tlf.jme.jfx.JavaFxUI;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;

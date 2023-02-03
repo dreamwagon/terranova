@@ -13,23 +13,11 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	    <jme3_g>org.jmonkeyengine</jme3_g>
-	    <jme3_v>3.2.3-stable</jme3_v>
-    	<javafx_v>11.0.2</javafx_v>
-	    <maven.compiler.source>1.8</maven.compiler.source>
-	    <maven.compiler.target>1.8</maven.compiler.target>
+	    <jme3_v>3.4.0-stable</jme3_v>
+    	<javafx_v>12</javafx_v>
+	    <maven.compiler.source>11</maven.compiler.source>
+	    <maven.compiler.target>11</maven.compiler.target>
   </properties>
-  
-  <repositories>
-  	 <repository>
-        <id>bintray-jmonkeyengine-org.jmonkeyengine</id>
-        <name>bintray</name>
-        <url>http://dl.bintray.com/jmonkeyengine/org.jmonkeyengine</url>
-    </repository>
-    <repository>
-      <id>jcenter</id>
-      <url>http://jcenter.bintray.com</url>
-    </repository>
-  </repositories>
   
   <dependencies>
   	<dependency>
@@ -69,21 +57,11 @@
 	</dependency>
 	
 	<dependency>
-	    <groupId>com.jayfella</groupId>
-	    <artifactId>jme-jfx-11</artifactId>
-	    <version>1.1.5</version>
+  	  <groupId>io.tlf.jme</groupId>
+	  <artifactId>jme-jfx</artifactId>
+	  <version>1.2.1</version>
 	</dependency>
 
-	<dependency>
-	    <groupId>org.openjfx</groupId>
-	    <artifactId>javafx-graphics</artifactId>
-	    <version>${javafx_v}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.openjfx</groupId>
-	    <artifactId>javafx-controls</artifactId>
-	    <version>${javafx_v}</version>
-	</dependency>
 	<dependency>
 	    <groupId>org.openjfx</groupId>
 	    <artifactId>javafx-fxml</artifactId>
@@ -92,7 +70,7 @@
 	<dependency>
 	    <groupId>org.controlsfx</groupId>
 	    <artifactId>controlsfx</artifactId>
-	    <version>11.0.0</version>
+	    <version>11.1.2</version>
 	</dependency>
 	<dependency>
 	    <groupId>com.fasterxml.jackson.core</groupId>
@@ -110,12 +88,6 @@
 	    <groupId>com.fasterxml.jackson.core</groupId>
 	    <artifactId>jackson-databind</artifactId>
 	    <version>2.10.0</version>
-	</dependency>
-	
-	<dependency>
-	    <groupId>com.jayfella</groupId>
-	    <artifactId>jme-position-plotters</artifactId>
-	    <version>1.0.0</version>
 	</dependency>
 	
 	<dependency>

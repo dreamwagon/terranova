@@ -46,11 +46,12 @@ import com.dreamwagon.terranova.settings.TerrainTextureSettings;
 import com.dreamwagon.terranova.util.IOUtil;
 import com.dreamwagon.terranova.util.ImageUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jayfella.jme.jfx.JavaFxUI;
-import com.jayfella.jme.jfx.util.JfxPlatform;
+
 import com.jme3.math.Vector3f;
 import com.jme3.terrain.geomipmap.TerrainQuad;
 
+import io.tlf.jme.jfx.JavaFxUI;
+import io.tlf.jme.jfx.util.JfxPlatform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -498,6 +499,7 @@ public class TerranovaUiManager
 		
 		//View main menu item
 		Menu menuView = new Menu("View");
+		
 		MenuItem menuItemTerrainManager = new MenuItem("Terrain Manager");
 		menuItemTerrainManager.setOnAction(openTerrainManagerHandler);
 		
@@ -516,7 +518,7 @@ public class TerranovaUiManager
 		menuView.getItems().add(menuItemTreePrototypeManager);
 		menuView.getItems().add(menuItemTreeManager);
 		menuView.getItems().add(menuItemObjectManager);
-		
+
 		Menu menuTools = new Menu("Tools");
 		MenuItem menuTerrainMixer = new MenuItem("Terrain Mixer");
 		//menuTerrainMixer.setOnAction();
@@ -551,14 +553,15 @@ public class TerranovaUiManager
 		menuBar.getMenus().add(menuView);
 		menuBar.getMenus().add(menuTools);
 		menuBar.getMenus().add(menuHelp);
-
-		
+		menuBar.setStyle("-fx-font-size: 12pt;");
+	    
 		JavaFxUI.getInstance().attachChild(menuBar);
 		
 		 JfxPlatform.runInFxThread(() ->{
 			//Bind the menu bar width to the width of the window
 			Window stage = menuBar.getScene().getWindow();
 			menuBar.prefWidthProperty().bind(stage.widthProperty());
+			
 		 });
 	
 	}

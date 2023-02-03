@@ -36,9 +36,10 @@ import org.controlsfx.control.RangeSlider;
 import com.dreamwagon.terranova.model.TerrainTexture;
 import com.dreamwagon.terranova.model.ToggleTexture;
 import com.dreamwagon.terranova.util.ImageUtil;
-import com.jayfella.jme.jfx.JavaFxUI;
+
 import com.jme3.texture.Texture;
 
+import io.tlf.jme.jfx.JavaFxUI;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;

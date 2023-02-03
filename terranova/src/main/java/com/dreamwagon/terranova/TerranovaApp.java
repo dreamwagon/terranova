@@ -41,7 +41,7 @@ import com.dreamwagon.terranova.settings.JMETerrainSettings;
 import com.dreamwagon.terranova.settings.TerrainTextureSettings;
 import com.dreamwagon.terranova.ui.TerranovaUiManager;
 import com.dreamwagon.terranova.util.IOUtil;
-import com.jayfella.jme.jfx.JavaFxUI;
+
 import com.jme3.app.FlyCamAppState;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
@@ -56,6 +56,8 @@ import com.jme3.scene.Node;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.shadow.EdgeFilteringMode;
 import com.jme3.system.AppSettings;
+
+import io.tlf.jme.jfx.JavaFxUI;
 
 /**
  * 
@@ -99,6 +101,7 @@ public class TerranovaApp extends SimpleApplication {
         appSettings.setResolution(1280, 720);
         appSettings.setFrameRate(120);
         appSettings.setTitle("Terranova");
+        //appSettings.setResizable(true);
         
         INSTANCE.setSettings(appSettings);
         INSTANCE.setShowSettings(false);
