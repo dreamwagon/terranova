@@ -41,7 +41,7 @@ import com.dreamwagon.terranova.settings.JMETerrainSettings;
 import com.dreamwagon.terranova.settings.TerrainTextureSettings;
 import com.dreamwagon.terranova.ui.TerranovaUiManager;
 import com.dreamwagon.terranova.util.IOUtil;
-
+import com.jfoenix.assets.JFoenixResources;
 import com.jme3.app.FlyCamAppState;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
@@ -57,7 +57,10 @@ import com.jme3.shadow.DirectionalLightShadowRenderer;
 import com.jme3.shadow.EdgeFilteringMode;
 import com.jme3.system.AppSettings;
 
+import io.datafx.controller.flow.context.FXMLViewFlowContext;
+import io.datafx.controller.flow.context.ViewFlowContext;
 import io.tlf.jme.jfx.JavaFxUI;
+import javafx.collections.ObservableList;
 
 /**
  * 
@@ -193,6 +196,14 @@ public class TerranovaApp extends SimpleApplication {
         //Start without camera active
         stateManager.detach(flyCamState);
         flyCamEnabled = false;
+         
+        final ObservableList<String> stylesheets = JavaFxUI.getInstance().getScene().getStylesheets();
+        stylesheets.addAll(JFoenixResources.load("css/jfoenix-fonts.css").toExternalForm(),
+                           JFoenixResources.load("css/jfoenix-design.css").toExternalForm());
+        
+ 
+        //String style = FXSkins.getStylesheetURL();
+        //JavaFxUI.getInstance().getScene().getStylesheets().add(style);
     }
     
     @Override

@@ -186,7 +186,7 @@ public class JMETerrainSettings extends AbstractSettingsDialog{
         public void handle(ActionEvent event) {
  	
 	        	//Get the stage
-        		Node sourceNode = JavaFxUI.getInstance().getChild(TerranovaUiManager.MAIN_MENU_BAR_ID);
+        		Node sourceNode = JavaFxUI.getInstance().getChild(TerranovaUiManager.HBG_MENU_BAR_ID);
         		Window stage = sourceNode.getScene().getWindow();
 	        	File file = TerranovaUiManager.TEXTURE_FILE_CHOOSER.showOpenDialog(stage);
 	            if (file != null) {

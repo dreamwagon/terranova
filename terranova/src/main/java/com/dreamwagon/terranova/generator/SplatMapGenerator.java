@@ -136,7 +136,7 @@ public class SplatMapGenerator extends AbstractSettingsDialog implements Generat
 			    fileChooser.getExtensionFilters().addAll(
 		                new FileChooser.ExtensionFilter("PNG File", "*.png")
 		            );
-			    Node menuNode = JavaFxUI.getInstance().getChild(TerranovaUiManager.MAIN_MENU_BAR_ID);
+			    Node menuNode = JavaFxUI.getInstance().getChild(TerranovaUiManager.HBG_MENU_BAR_ID);
 	    		Window stage = menuNode.getScene().getWindow();
 			    File selectedFile = fileChooser.showSaveDialog(stage);
 			

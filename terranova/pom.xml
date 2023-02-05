@@ -64,6 +64,16 @@
 
 	<dependency>
 	    <groupId>org.openjfx</groupId>
+	    <artifactId>javafx-graphics</artifactId>
+	    <version>${javafx_v}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.openjfx</groupId>
+	    <artifactId>javafx-controls</artifactId>
+	    <version>${javafx_v}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.openjfx</groupId>
 	    <artifactId>javafx-fxml</artifactId>
 	    <version>${javafx_v}</version>
 	</dependency>
@@ -72,22 +82,38 @@
 	    <artifactId>controlsfx</artifactId>
 	    <version>11.1.2</version>
 	</dependency>
+	
+	<dependency>
+	    <groupId>com.jfoenix</groupId>
+	    <artifactId>jfoenix</artifactId>
+	    <version>9.0.10</version>
+	</dependency>
+	<dependency>
+	    <groupId>io.datafx</groupId>
+	    <artifactId>datafx</artifactId>
+	    <version>8.0.1</version>
+	</dependency>
+	<dependency>
+	    <groupId>io.datafx</groupId>
+	    <artifactId>flow</artifactId>
+	    <version>8.0.1</version>
+	</dependency>
 	<dependency>
 	    <groupId>com.fasterxml.jackson.core</groupId>
 	    <artifactId>jackson-core</artifactId>
-	    <version>2.10.0</version>
+	    <version>2.14.2</version>
 	</dependency>
 
 	<dependency>
 	    <groupId>com.fasterxml.jackson.core</groupId>
 	    <artifactId>jackson-annotations</artifactId>
-	    <version>2.10.0</version>
+	    <version>2.14.2</version>
 	</dependency>
 
 	<dependency>
 	    <groupId>com.fasterxml.jackson.core</groupId>
 	    <artifactId>jackson-databind</artifactId>
-	    <version>2.10.0</version>
+	    <version>2.14.2</version>
 	</dependency>
 	
 	<dependency>

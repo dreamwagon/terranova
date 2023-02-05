@@ -46,14 +46,19 @@ import com.dreamwagon.terranova.settings.TerrainTextureSettings;
 import com.dreamwagon.terranova.util.IOUtil;
 import com.dreamwagon.terranova.util.ImageUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import com.jme3.math.Vector3f;
 import com.jme3.terrain.geomipmap.TerrainQuad;
 
 import io.tlf.jme.jfx.JavaFxUI;
 import io.tlf.jme.jfx.util.JfxPlatform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -61,10 +66,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -76,7 +85,7 @@ import javafx.stage.Window;
  *
  */
 public class TerranovaUiManager
-{
+{  
 	public static float DEFAULT_FLY_CAM_SPEED = 200;
 	
 	public static float FLY_CAM_SPEED = DEFAULT_FLY_CAM_SPEED;
@@ -96,7 +105,9 @@ public class TerranovaUiManager
     
     public static final FileChooser MODEL_FILE_CHOOSER = new FileChooser();
     
-    public static String MAIN_MENU_BAR_ID = "main_menu_bar";
+    //public static String MAIN_MENU_BAR_ID = "main_menu_bar";
+    
+    public static String HBG_MENU_BAR_ID = "hbg_menu_bar";
     
     public static Map<String, Settings> persistentSettings = new HashMap<String, Settings>();
     public static Map<String, Dialog<Void>> persistentDialogMap = new HashMap<String, Dialog<Void>>();
@@ -322,7 +333,7 @@ public class TerranovaUiManager
 		    fileChooser.getExtensionFilters().addAll(
 	                new FileChooser.ExtensionFilter("J3O File", "*.j3o")
 	            );
-		    Node menuNode = JavaFxUI.getInstance().getChild(MAIN_MENU_BAR_ID);
+		    Node menuNode = JavaFxUI.getInstance().getChild(HBG_MENU_BAR_ID);
     		Window stage = menuNode.getScene().getWindow();
 		    File selectedFile = fileChooser.showSaveDialog(stage);
 		
@@ -348,7 +359,7 @@ public class TerranovaUiManager
     		    fileChooser.getExtensionFilters().addAll(
     	                new FileChooser.ExtensionFilter("JSON File", "*.json")
     	            );
-    		    Node menuNode = JavaFxUI.getInstance().getChild(MAIN_MENU_BAR_ID);
+    		    Node menuNode = JavaFxUI.getInstance().getChild(HBG_MENU_BAR_ID);
         		Window stage = menuNode.getScene().getWindow();
     		    File selectedFile = fileChooser.showOpenDialog(stage);
     		    
@@ -376,7 +387,7 @@ public class TerranovaUiManager
 		    fileChooser.getExtensionFilters().addAll(
 	                new FileChooser.ExtensionFilter("JSON File", "*.json")
 	            );
-		    Node menuNode = JavaFxUI.getInstance().getChild(MAIN_MENU_BAR_ID);
+		    Node menuNode = JavaFxUI.getInstance().getChild(HBG_MENU_BAR_ID);
     		Window stage = menuNode.getScene().getWindow();
 		    File selectedFile = fileChooser.showSaveDialog(stage);
 		
@@ -398,7 +409,7 @@ public class TerranovaUiManager
 		    fileChooser.getExtensionFilters().addAll(
 	                new FileChooser.ExtensionFilter("PNG File", "*.png")
 	            );
-		    Node menuNode = JavaFxUI.getInstance().getChild(MAIN_MENU_BAR_ID);
+		    Node menuNode = JavaFxUI.getInstance().getChild(HBG_MENU_BAR_ID);
     		Window stage = menuNode.getScene().getWindow();
 		    File selectedFile = fileChooser.showSaveDialog(stage);
 		
@@ -459,111 +470,196 @@ public class TerranovaUiManager
 	 * Builds the main menu
 	 */
 	public static void createMainMenu()
-	{
-		//File main menu item
-		Menu menuFile = new Menu("File");
+	{		  
+		JFXHamburger hamburger = new JFXHamburger();
+		JFXDrawer drawer = new JFXDrawer();
+		drawer.setPrefWidth(0);
+		
+		hamburger.setId(HBG_MENU_BAR_ID);
 
-		MenuItem menuItemOpenProject = new MenuItem("Open Project");
-		menuItemOpenProject.setOnAction(loadProjectHandler);
+	    hamburger.setAlignment(Pos.TOP_LEFT);
+	    hamburger.setPadding(new Insets(5));
+	    hamburger.setStyle("-fx-background-color: #fff;");
+	    HamburgerSlideCloseTransition task = new HamburgerSlideCloseTransition(hamburger);
+	    
+	    hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (Event event) -> {
+            drawer.toggle();
+        });
+        drawer.setOnDrawerOpening((event) -> {
+        	
+        	task.setRate(task.getRate() * 1);
+        	task.playFromStart();
+            drawer.setMinWidth(220);
+        });
+        drawer.setOnDrawerClosed((event) -> {
+        	
+            task.setRate(task.getRate() * -1);
+            task.play();
+            drawer.setMinWidth(0);
+        });    
+	    
+		//File main menu item
+		TreeItem<TreeMenuData> menuFile = new TreeItem<TreeMenuData>(new TreeMenuData("File", null));
+		TreeItem<TreeMenuData> menuItemOpenProject = new TreeItem<TreeMenuData>(new TreeMenuData("Open Project",loadProjectHandler));
+
 		
 		//New Submenu
-		MenuItem menuItemSave = new MenuItem("Save Project");
-		menuItemSave.setOnAction(saveProjectHandler);
+		TreeItem<TreeMenuData> menuItemSave = new TreeItem<TreeMenuData>(new TreeMenuData("Save Project",saveProjectHandler));
+		//MenuItem menuItemSave = new MenuItem("Save Project");
+		//menuItemSave.setOnAction(saveProjectHandler);
 		
-		Menu menuExport = new Menu("Export");
-		MenuItem menuItemExpRoot = new MenuItem("Root Node to jm3o (full scene)");
-		menuItemExpRoot.setOnAction(exportJ3OHandler);   
-		MenuItem menuItemExpTerrainOnly = new MenuItem("Terrain Node to jm3o");
-		MenuItem menuItemExpTreesOnly= new MenuItem("Trees Node to jm3o");
-		MenuItem menuItemExpGrassOnly = new MenuItem("Grass Node to jm3o");
-		MenuItem menuItemExpObjectOnly = new MenuItem("Model Node to jm3o");
-		MenuItem menuItemExpHeightmapPng = new MenuItem("Terrain to Heightmap");
-		menuItemExpHeightmapPng.setOnAction(exportHeightmapHandler);   
-		MenuItem menuItemExpObjectJson = new MenuItem("All to json");
+		TreeItem<TreeMenuData> menuExport = new TreeItem<TreeMenuData>(new TreeMenuData("Export",null));
+		//Menu menuExport = new Menu("Export");
 		
-		menuExport.getItems().add(menuItemExpRoot);
-		menuExport.getItems().add(menuItemExpTerrainOnly);
-		menuExport.getItems().add(menuItemExpTreesOnly);
-		menuExport.getItems().add(menuItemExpGrassOnly);
-		menuExport.getItems().add(menuItemExpObjectOnly);
-		menuExport.getItems().add(menuItemExpHeightmapPng);
-		menuExport.getItems().add(menuItemExpObjectJson);
+		TreeItem<TreeMenuData> menuItemExpRoot = new TreeItem<TreeMenuData>(new TreeMenuData("Root Node to jm3o (full scene)",exportJ3OHandler));
+		TreeItem<TreeMenuData> menuItemExpHeightmapPng = new TreeItem<TreeMenuData>(new TreeMenuData("Terrain to Heightmap",exportHeightmapHandler));
 		
-		MenuItem menuItemQuit = new MenuItem("Quit");
-		menuItemQuit.setOnAction(quitHandler);
+		//MenuItem menuItemExpRoot = new MenuItem("Root Node to jm3o (full scene)");
+		//menuItemExpRoot.setOnAction(exportJ3OHandler);   
+		//MenuItem menuItemExpTerrainOnly = new MenuItem("Terrain Node to jm3o");
+		//MenuItem menuItemExpTreesOnly= new MenuItem("Trees Node to jm3o");
+		//MenuItem menuItemExpGrassOnly = new MenuItem("Grass Node to jm3o");
+		//MenuItem menuItemExpObjectOnly = new MenuItem("Model Node to jm3o");
+		//MenuItem menuItemExpHeightmapPng = new MenuItem("Terrain to Heightmap");
+		//menuItemExpHeightmapPng.setOnAction(exportHeightmapHandler);   
+		//MenuItem menuItemExpObjectJson = new MenuItem("All to json");
 		
-		menuFile.getItems().add(menuItemOpenProject);
-		menuFile.getItems().add(menuItemSave);
-		menuFile.getItems().add(menuExport);
-		menuFile.getItems().add(menuItemQuit);
+		menuExport.getChildren().add(menuItemExpRoot);
+		menuExport.getChildren().add(menuItemExpHeightmapPng);
+		//menuExport.getItems().add(menuItemExpTerrainOnly);
+		//menuExport.getItems().add(menuItemExpTreesOnly);
+		//menuExport.getItems().add(menuItemExpGrassOnly);
+		//menuExport.getItems().add(menuItemExpObjectOnly);
+		//menuExport.getItems().add(menuItemExpHeightmapPng);
+		//menuExport.getChildren().add(menuItemExpObjectJson);
+		
+		TreeItem<TreeMenuData> menuItemQuit = new TreeItem<TreeMenuData>(new TreeMenuData("Quit",quitHandler));
+		//MenuItem menuItemQuit = new MenuItem("Quit");
+		//menuItemQuit.setOnAction(quitHandler);
+		
+		menuFile.getChildren().add(menuItemOpenProject);
+		menuFile.getChildren().add(menuItemSave);
+		menuFile.getChildren().add(menuExport);
+		menuFile.getChildren().add(menuItemQuit);
 		
 		//View main menu item
-		Menu menuView = new Menu("View");
+		TreeItem<TreeMenuData> menuView = new TreeItem<TreeMenuData>(new TreeMenuData("View", null));
+		//Menu menuView = new Menu("View");
 		
-		MenuItem menuItemTerrainManager = new MenuItem("Terrain Manager");
-		menuItemTerrainManager.setOnAction(openTerrainManagerHandler);
+		TreeItem<TreeMenuData> menuItemTerrainManager = new TreeItem<TreeMenuData>(new TreeMenuData("Terrain Manager", openTerrainManagerHandler));
+		//MenuItem menuItemTerrainManager = new MenuItem("Terrain Manager");
+		//menuItemTerrainManager.setOnAction(openTerrainManagerHandler);
 		
-		MenuItem menuItemTreePrototypeManager = new MenuItem("Tree Prototype Manager");
-		menuItemTreePrototypeManager.setOnAction(openTreePrototypeManagerHandler);
+		TreeItem<TreeMenuData> menuItemTreePrototypeManager = new TreeItem<TreeMenuData>(new TreeMenuData("Tree Prototype Manager", openTreePrototypeManagerHandler));
+		//MenuItem menuItemTreePrototypeManager = new MenuItem("Tree Prototype Manager");
+		//menuItemTreePrototypeManager.setOnAction(openTreePrototypeManagerHandler);
 		
-		MenuItem menuItemTreeManager = new MenuItem("Tree & Grass Manager");
-		menuItemTreeManager.setOnAction(openTreeManagerHandler);
+		TreeItem<TreeMenuData> menuItemTreeManager = new TreeItem<TreeMenuData>(new TreeMenuData("Tree & Grass Manager", openTreeManagerHandler));
+		//MenuItem menuItemTreeManager = new MenuItem("Tree & Grass Manager");
+		//menuItemTreeManager.setOnAction(openTreeManagerHandler);
 		
-		MenuItem menuItemTerrainTextureManager = new MenuItem("Terrain Texture Manager");
-		menuItemTerrainTextureManager.setOnAction(openTerrainTextureManagerHandler);
+		TreeItem<TreeMenuData> menuItemTerrainTextureManager = new TreeItem<TreeMenuData>(new TreeMenuData("Terrain Texture Manager", openTerrainTextureManagerHandler));
+		//MenuItem menuItemTerrainTextureManager = new MenuItem("Terrain Texture Manager");
+		//menuItemTerrainTextureManager.setOnAction(openTerrainTextureManagerHandler);
 		
-		MenuItem menuItemObjectManager = new MenuItem("Object Manager");
-		menuView.getItems().add(menuItemTerrainManager);
-		menuView.getItems().add(menuItemTerrainTextureManager);
-		menuView.getItems().add(menuItemTreePrototypeManager);
-		menuView.getItems().add(menuItemTreeManager);
-		menuView.getItems().add(menuItemObjectManager);
+		//MenuItem menuItemObjectManager = new MenuItem("Object Manager");
+		menuView.getChildren().add(menuItemTerrainManager);
+		menuView.getChildren().add(menuItemTerrainTextureManager);
+		menuView.getChildren().add(menuItemTreePrototypeManager);
+		menuView.getChildren().add(menuItemTreeManager);
+		//menuView.getItems().add(menuItemObjectManager);
 
-		Menu menuTools = new Menu("Tools");
-		MenuItem menuTerrainMixer = new MenuItem("Terrain Mixer");
-		//menuTerrainMixer.setOnAction();
-		menuTools.getItems().add(menuTerrainMixer);
-		Menu menuTerrainGenerator = new Menu("Terrain Generators");
-		menuTools.getItems().add(menuTerrainGenerator);
-		MenuItem menuHillTerrainGenerator = new MenuItem("Hill Height Map Terrain Generator");
-		menuTerrainGenerator.setOnAction(openHillHeightmapTerrainGeneratorHandler);
-		menuTerrainGenerator.getItems().add(menuHillTerrainGenerator);
+		TreeItem<TreeMenuData> menuTools = new TreeItem<TreeMenuData>(new TreeMenuData("Tools", null));
+		//Menu menuTools = new Menu("Tools");
+		//MenuItem menuTerrainMixer = new MenuItem("Terrain Mixer");
 		
-		Menu menuTextureGenerators = new Menu("Texture Generators");
-		menuTools.getItems().add(menuTextureGenerators);
-		MenuItem menuSlatmapGenerator = new MenuItem("Slatmap Generator");
-		menuSlatmapGenerator.setOnAction(openSplatmapGeneratorHandler);
-		menuTextureGenerators.getItems().add(menuSlatmapGenerator);
+		//TODO build terrain mixer interface
+		//TreeItem<TreeMenuData> menuTerrainMixer = new TreeItem<TreeMenuData>(new TreeMenuData("Terrain Mixer", openTerrainTextureManagerHandler));
+
+		TreeItem<TreeMenuData> menuTerrainGenerator = new TreeItem<TreeMenuData>(new TreeMenuData("Terrain Generators", null));
+		//Menu menuTerrainGenerator = new Menu("Terrain Generators");
+		menuTools.getChildren().add(menuTerrainGenerator);
+		TreeItem<TreeMenuData> menuHillTerrainGenerator = new TreeItem<TreeMenuData>(new TreeMenuData("Hill Height Map Terrain Generator", openHillHeightmapTerrainGeneratorHandler));
+		//MenuItem menuHillTerrainGenerator = new MenuItem("Hill Height Map Terrain Generator");
+		//menuTerrainGenerator.setOnAction(openHillHeightmapTerrainGeneratorHandler);
+		menuTerrainGenerator.getChildren().add(menuHillTerrainGenerator);
 		
-		MenuItem menuFastNoiseHeightmapGenerator = new MenuItem("Fast Noise Heightmap Generator");
-		menuFastNoiseHeightmapGenerator.setOnAction(openFastNoiseHeightmapGeneratorHandler);
-		menuTextureGenerators.getItems().add(menuFastNoiseHeightmapGenerator);
+		TreeItem<TreeMenuData> menuTextureGenerators = new TreeItem<TreeMenuData>(new TreeMenuData("Texture Generators", null));
+		//Menu menuTextureGenerators = new Menu("Texture Generators");
+		menuTools.getChildren().add(menuTextureGenerators);
 		
-		Menu menuHelp = new Menu("Help");
-		MenuItem menuHelpResetCamera = new MenuItem("Reset Camera");
-		menuHelpResetCamera.setOnAction(resetCameraHandler);
-		MenuItem menuViewHelp = new MenuItem("View Help");
-		menuViewHelp.setOnAction(helpHandler);
-		menuHelp.getItems().addAll(menuHelpResetCamera, menuViewHelp);
+		TreeItem<TreeMenuData> menuSlatmapGenerator = new TreeItem<TreeMenuData>(new TreeMenuData("Slatmap Generator", openSplatmapGeneratorHandler));
+		//MenuItem menuSlatmapGenerator = new MenuItem("Slatmap Generator");
+		//menuSlatmapGenerator.setOnAction(openSplatmapGeneratorHandler);
+		menuTextureGenerators.getChildren().add(menuSlatmapGenerator);
 		
-		//The menu bar
-		MenuBar menuBar = new MenuBar();
-		menuBar.setId(MAIN_MENU_BAR_ID);
-		menuBar.getMenus().add(menuFile);
-		menuBar.getMenus().add(menuView);
-		menuBar.getMenus().add(menuTools);
-		menuBar.getMenus().add(menuHelp);
-		menuBar.setStyle("-fx-font-size: 12pt;");
+		TreeItem<TreeMenuData> menuFastNoiseHeightmapGenerator = new TreeItem<TreeMenuData>(new TreeMenuData("Fast Noise Heightmap Generator", openFastNoiseHeightmapGeneratorHandler));
+		//MenuItem menuFastNoiseHeightmapGenerator = new MenuItem("Fast Noise Heightmap Generator");
+		//menuFastNoiseHeightmapGenerator.setOnAction(openFastNoiseHeightmapGeneratorHandler);
+		menuTextureGenerators.getChildren().add(menuFastNoiseHeightmapGenerator);
+		
+		TreeItem<TreeMenuData> menuHelp = new TreeItem<TreeMenuData>(new TreeMenuData("Help", null));
+		//Menu menuHelp = new Menu("Help");
+		TreeItem<TreeMenuData> menuHelpResetCamera = new TreeItem<TreeMenuData>(new TreeMenuData("Reset Camera", resetCameraHandler));
+		//MenuItem menuHelpResetCamera = new MenuItem("Reset Camera");
+		//menuHelpResetCamera.setOnAction(resetCameraHandler);
+		TreeItem<TreeMenuData> menuViewHelp = new TreeItem<TreeMenuData>(new TreeMenuData("View Help", helpHandler));
+		//MenuItem menuViewHelp = new MenuItem("View Help");
+		//menuViewHelp.setOnAction(helpHandler);
+		menuHelp.getChildren().addAll(menuHelpResetCamera, menuViewHelp);
+		
+		BorderPane borderPane = new BorderPane();
+		AnchorPane anchorPane = new AnchorPane(hamburger);
+		borderPane.setCenter(anchorPane);
+		
+		ScrollPane scrollPane = new ScrollPane();
+		VBox vbox = new VBox();
+		
+		TreeItem<TreeMenuData> base = new TreeItem<TreeMenuData>(new TreeMenuData("Actions",null));
+		base.setExpanded(true);
+		base.getChildren().addAll(menuFile, menuView, menuTools, menuHelp);
+	      
+		TreeView<TreeMenuData> view = new TreeView<TreeMenuData>(base);
+		vbox.getChildren().addAll(view);
+
+		view.setOnMouseClicked(new EventHandler<MouseEvent>()
+		{
+		    @Override
+		    public void handle(MouseEvent mouseEvent)
+		    {            
+		        if(mouseEvent.getClickCount() == 2)
+		        {
+		            TreeItem item = (TreeItem)view.getSelectionModel().getSelectedItem();
+		            TreeMenuData data = (TreeMenuData) item.getValue();
+		            if (data.getEvent() != null)
+		            {
+		            	data.getEvent().handle(null);
+		            }
+		            //System.out.println("Selected Text : " + data.getName());
+
+		        }
+		    }
+		});
+		
+	    scrollPane.setContent(vbox);
 	    
-		JavaFxUI.getInstance().attachChild(menuBar);
-		
+	    
+		borderPane.setLeft(drawer);
+			
+	   
+	    drawer.setDefaultDrawerSize(230);
+	    drawer.setSidePane(scrollPane);
+        drawer.setMinWidth(0);
+        
+	    JavaFxUI.getInstance().attachChild(borderPane);
+	    
+        
 		 JfxPlatform.runInFxThread(() ->{
 			//Bind the menu bar width to the width of the window
-			Window stage = menuBar.getScene().getWindow();
-			menuBar.prefWidthProperty().bind(stage.widthProperty());
-			
+			Window stage = borderPane.getScene().getWindow();
+			hamburger.prefWidthProperty().bind(stage.widthProperty());
+			borderPane.prefWidthProperty().bind(stage.widthProperty());
 		 });
-	
 	}
 
 	public static ScrollPane getHelpContent()
