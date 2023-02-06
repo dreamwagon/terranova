@@ -3,17 +3,15 @@ package com.dreamwagon.terranova.generator;
 import java.io.File;
 
 import com.dreamwagon.terranova.TerranovaApp;
-import com.dreamwagon.terranova.settings.JMETerrainSettings;
+import com.dreamwagon.terranova.fastnoise.FastNoise;
+import com.dreamwagon.terranova.fastnoise.GradientPerturb;
+import com.dreamwagon.terranova.fastnoise.NoiseLayer;
 import com.dreamwagon.terranova.ui.AbstractSettingsDialog;
 import com.dreamwagon.terranova.ui.Setting;
 import com.dreamwagon.terranova.ui.SettingType;
 import com.dreamwagon.terranova.ui.TerranovaUiManager;
 import com.dreamwagon.terranova.util.ImageUtil;
 import com.dreamwagon.terranova.util.MathUtil;
-import com.jayfella.fastnoise.FastNoise;
-import com.jayfella.fastnoise.GradientPerturb;
-import com.jayfella.fastnoise.NoiseLayer;
-
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;

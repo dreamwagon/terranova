@@ -1,16 +1,16 @@
 package com.dreamwagon.terranova.settings;
 
+import com.dreamwagon.terranova.fastnoise.FastNoise.CellularDistanceFunction;
+import com.dreamwagon.terranova.fastnoise.FastNoise.CellularReturnType;
+import com.dreamwagon.terranova.fastnoise.FastNoise.FractalType;
+import com.dreamwagon.terranova.fastnoise.FastNoise.Interp;
+import com.dreamwagon.terranova.fastnoise.FastNoise.NoiseType;
+import com.dreamwagon.terranova.fastnoise.GradientPerturb;
+import com.dreamwagon.terranova.fastnoise.NoiseLayer;
 import com.dreamwagon.terranova.generator.Generator;
 import com.dreamwagon.terranova.ui.AbstractSettingsDialog;
 import com.dreamwagon.terranova.ui.Setting;
 import com.dreamwagon.terranova.ui.SettingType;
-import com.jayfella.fastnoise.FastNoise.CellularDistanceFunction;
-import com.jayfella.fastnoise.FastNoise.CellularReturnType;
-import com.jayfella.fastnoise.FastNoise.FractalType;
-import com.jayfella.fastnoise.FastNoise.Interp;
-import com.jayfella.fastnoise.FastNoise.NoiseType;
-import com.jayfella.fastnoise.GradientPerturb;
-import com.jayfella.fastnoise.NoiseLayer;
 
 /**
  * Noise Layer settings
